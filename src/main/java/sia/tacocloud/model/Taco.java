@@ -9,6 +9,7 @@ import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
+import sia.tacocloud.utils.TacoUDTUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -30,10 +31,10 @@ public class Taco {
     @NotNull
     @Size(min = 1, message = "You must choose at least 1 ingredient")
     @Column("ingredients")
-    private List<Ingredient> ingredients;
+    private List<IngredientUDT> ingredients;
 
     public void addIngredient(Ingredient ingredient){
-        ingredients.add(ingredient);
+        ingredients.add(TacoUDTUtils.toIngredientUDT(ingredient));
     }
 
 }

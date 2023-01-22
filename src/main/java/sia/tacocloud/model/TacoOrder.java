@@ -1,25 +1,30 @@
 package sia.tacocloud.model;
 
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+import sia.tacocloud.utils.TacoUDTUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
-@Table("tacoOrder")
+@Table("orders")
 public class TacoOrder implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Long id;
+    @PrimaryKey
+    private UUID id = Uuids.timeBased();
+    private Date placedAt;
 
     @NotBlank(message = "Delivery name is required")
     @Size(max = 50, message = "Maximum size of the field is 50 characters")
@@ -51,12 +56,11 @@ public class TacoOrder implements Serializable {
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
 
-    private List<Taco> tacos;
+    @Column("tacos")
+    private List<TacoUDT> tacos = new ArrayList<>();
 
-    private Date placedAt;
 
     public void addTaco(Taco taco) {
-        if (tacos == null) tacos = new ArrayList<>();
-        tacos.add(taco);
+        tacos.add(TacoUDTUtils.toTacoUdt(taco));
     }
 }
