@@ -24,7 +24,7 @@ public class RegistrationController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping()
+    @GetMapping
     public String showRegisterForm() {
         return "registration";
     }
