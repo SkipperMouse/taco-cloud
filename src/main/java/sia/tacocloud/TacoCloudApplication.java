@@ -4,7 +4,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import sia.tacocloud.dao.IngredientRepository;
+import sia.tacocloud.repository.IngredientRepository;
 import sia.tacocloud.model.Ingredient;
 import sia.tacocloud.model.Ingredient.Type;
 
