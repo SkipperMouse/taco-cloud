@@ -1,10 +1,7 @@
 package sia.tacocloud.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,21 +11,32 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
-@AllArgsConstructor
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private final String userName;
-    private final String password;
-    private final String fullname;
-    private final String street;
-    private final String state;
-    private final String zip;
-    private final String phoneNumber;
+    private String username;
+    private String password;
+    private String fullName;
+    private String street;
+    private String state;
+    private String zip;
+    private String phoneNumber;
+
+    public User() {
+    }
+
+    public User(String username, String password, String fullName, String street, String city, String state, String zip, String phoneNumber) {
+        this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+        this.street = street;
+        this.state = state;
+        this.zip = zip;
+        this.phoneNumber = phoneNumber;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -37,7 +45,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName ;
+        return username;
     }
 
     @Override

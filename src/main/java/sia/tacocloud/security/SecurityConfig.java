@@ -1,4 +1,4 @@
-package sia.tacocloud.config;
+package sia.tacocloud.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
