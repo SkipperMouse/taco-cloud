@@ -1,9 +1,10 @@
-/*DROP TABLE IF EXISTS Ingredient_Ref;
+DROP TABLE IF EXISTS Ingredient_Ref;
 DROP TABLE IF EXISTS INGREDIENT;
 DROP TABLE IF EXISTS Taco;
-DROP TABLE IF EXISTS Taco_Order;*/
+DROP TABLE IF EXISTS Taco_Order;
+DROP TABLE IF EXISTS Users;
 
-    create table if not exists Taco_Order
+create table if not exists Taco_Order
 (
     id              identity,
     delivery_Name   varchar(50) not null,
@@ -32,9 +33,22 @@ create table if not exists Ingredient_Ref
 );
 create table if not exists Ingredient
 (
-    id   varchar(4)  PRIMARY KEY not null,
-    name varchar(25) not null,
-    type varchar(10) not null
+    id   varchar(4) PRIMARY KEY not null,
+    name varchar(25)            not null,
+    type varchar(10)            not null
+);
+
+create table if not exists Users
+(
+    id identity,
+    username varchar(30) NOT NULL ,
+    password varchar NOT NULL ,
+    full_name varchar(120) NOT NULL,
+    city varchar,
+    street varchar(50),
+    state varchar (4),
+    zip varchar(30),
+    phone_number varchar(30)
 );
 
 -- ADD MANY TO MANY LINK

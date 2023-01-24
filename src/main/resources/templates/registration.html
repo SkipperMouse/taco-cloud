@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Register</h1>
-<form method="POST" action="@{/register}" id="registerForm">
+<form th:method="POST" th:action="@{/register}" th:id="registerForm">
     <label for="username">Username:</label>
     <input type="text" name="username" id="username"/>
     <br/>

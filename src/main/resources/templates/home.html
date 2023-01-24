@@ -9,5 +9,11 @@
 <h2>Welcome to Taco Cloud</h2>
 <h3><a href="/design" style=color:#000000>Click to make your order</a></h3>
 <img th:src="@{images/hello.png}"/>
+
+
+<form method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+</form>
+
 </body>
 </html>

@@ -1,7 +1,13 @@
-delete from INGREDIENT_REF;
-delete from Taco;
-delete from Taco_Order;
-delete from Ingredient;
+delete
+from INGREDIENT_REF;
+delete
+from Taco;
+delete
+from Taco_Order;
+delete
+from Ingredient;
+delete
+from Users;
 
 
 insert into Ingredient (id, name, type)
@@ -24,3 +30,6 @@ insert into Ingredient (id, name, type)
 values ('SLSA', 'Salsa', 'SAUCE');
 insert into Ingredient (id, name, type)
 values ('SRCR', 'Sour Cream', 'SAUCE');
+
+INSERT INTO Users(username, password, full_name)
+values ('admin', 'admin', 'Roman Sokolov');
