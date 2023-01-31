@@ -2,6 +2,8 @@ package sia.tacocloud.controllers;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,5 +41,18 @@ public class OrderController {
         return "redirect:/";
     }
 
+    @PostMapping("/clear")
+    //method won't be invoked if user doesn't have role ADMIN throws AccessDeniedException
+    @PreAuthorize("hasRole('ADMIN')")
+    public String deleteAllOrders() {
+        orderRepo.deleteAll();
+        return "redirect:/";
+    }
+    @PostAuthorize("hasRole('ADMIN') || " +
+            "returnObject.user.username == authentication.name")
+    public TacoOrder getOrder(long id) {
+        return orderRepo.findById(id).orElse(new TacoOrder());
+    }
+
 }
-}
+

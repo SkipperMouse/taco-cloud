@@ -2,18 +2,18 @@ package sia.tacocloud.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import sia.tacocloud.model.User;
 import sia.tacocloud.repository.UserRepository;
 
 @Configuration
+@EnableGlobalAuthentication
 public class SecurityConfig {
 
     @Bean
@@ -35,8 +35,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.POST, "/design?continue", "/orders").hasRole("USER")
-                    .requestMatchers("/design", "/orders").hasRole("USER")
+                    .requestMatchers("/design?continue", "/design", "/orders").hasRole("USER")
                     .requestMatchers("/", "/**").permitAll()
                 .and()
                     .formLogin()
@@ -44,7 +43,7 @@ public class SecurityConfig {
                     .defaultSuccessUrl("/design")
                 .and()
                     .logout()
-                        .logoutSuccessUrl("/")
+                    .logoutSuccessUrl("/")
                 .and()
                 .build();
     }
